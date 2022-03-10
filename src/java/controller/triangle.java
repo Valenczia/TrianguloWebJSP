@@ -27,7 +27,7 @@ public class triangle extends HttpServlet {
             out.println("<title>Servlet triangle</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Resultado</h1>");
+            out.println("<h1>Resultado con Servlet</h1>");
             out.println("<p>El área es: " + t.area() + "</p>");
             out.println("<p>El perímetro es: " + t.perimeter() + "</p>");
             out.println("</body>");

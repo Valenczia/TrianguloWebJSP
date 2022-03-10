@@ -5,10 +5,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Calculadora Triángulo Equilátero</title>
+        <title>Calculadora Triángulo Equilátero (Con Servlet)</title>
     </head>
     <body>
-        <h1>Calculadora Triángulo Equilátero</h1>
+        <h1>Calculadora Triángulo Equilátero (Con Servlet)</h1>
         <form action="triangle" method="post">
             <label for="base">Base:</label><br>
             <input type="number" id="base" name="base"><br>
