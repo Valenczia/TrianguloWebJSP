@@ -1,4 +1,4 @@
-package Calculation;
+package model;
 
 public class Triangle {
     private int base;
