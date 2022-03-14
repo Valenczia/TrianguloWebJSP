@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Triangle;
+import javax.servlet.http.Cookie;
 
 @WebServlet(name = "triangle", urlPatterns = {"/triangle"})
 public class triangle extends HttpServlet {
@@ -18,21 +19,15 @@ public class triangle extends HttpServlet {
         
         int base = Integer.parseInt(request.getParameter("base"));
         int heigth = Integer.parseInt(request.getParameter("heigth"));
+        Cookie cBase = new Cookie("base", request.getParameter("base"));
+        response.addCookie(cBase);
+        Cookie cHeigth = new Cookie("heigth", request.getParameter("heigth"));
+        response.addCookie(cHeigth);
         Triangle t = new Triangle(base, heigth);
+        request.setAttribute("area", t.area());
+        request.setAttribute("perimeter", t.perimeter());
+        getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
         
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet triangle</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Resultado con Servlet</h1>");
-            out.println("<p>El área es: " + t.area() + "</p>");
-            out.println("<p>El perímetro es: " + t.perimeter() + "</p>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,5 +68,5 @@ public class triangle extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }
