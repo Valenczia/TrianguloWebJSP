@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Triangle;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "triangle", urlPatterns = {"/triangle"})
 public class triangle extends HttpServlet {
@@ -19,51 +20,41 @@ public class triangle extends HttpServlet {
         
         int base = Integer.parseInt(request.getParameter("base"));
         int heigth = Integer.parseInt(request.getParameter("heigth"));
-        Cookie cBase = new Cookie("base", request.getParameter("base"));
+        Cookie cBase = new Cookie("Base", request.getParameter("base"));
         response.addCookie(cBase);
-        Cookie cHeigth = new Cookie("heigth", request.getParameter("heigth"));
+        Cookie cHeigth = new Cookie("Altura", request.getParameter("heigth"));
         response.addCookie(cHeigth);
+        HttpSession sesion= request.getSession(false);
+        sesion.setAttribute("nombre", request.getParameter("nombre"));
         Triangle t = new Triangle(base, heigth);
         request.setAttribute("area", t.area());
+        String areastring=String.valueOf(t.area());    
+        Cookie cArea = new Cookie("Area", areastring);
+        response.addCookie(cArea);
+        String perimeterstring=String.valueOf(t.perimeter());    
+        Cookie cPerimeter = new Cookie("Perimetro", perimeterstring);
+        response.addCookie(cPerimeter);
+        
         request.setAttribute("perimeter", t.perimeter());
         getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    
     @Override
     public String getServletInfo() {
         return "Short description";
